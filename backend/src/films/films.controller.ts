@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Param, Post, Body, NotFoundException } from '@nestjs/common';
 import { FilmsService } from './films.service';
-import { Film, Schedule } from './film.schema';
+import { Film, Schedule } from './entity';
 
 @Controller('/films')
 export class FilmsController {
@@ -27,7 +27,7 @@ export class FilmsController {
     if (!film) {
       throw new NotFoundException(`Фильм с ID ${id} не найден`);
     }
-    const schedule = film.schedule || [];
+    const schedule = film.schedules || [];
     return {
       total: schedule.length,
       items: schedule,

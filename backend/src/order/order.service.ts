@@ -1,53 +1,60 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Film, FilmDocument } from '../films/film.schema';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Film, Schedule } from '../films/entity';
 import { CreateOrderDto } from './order.schema';
 
 @Injectable()
 export class OrderService {
-  constructor(@InjectModel(Film.name) private filmModel: Model<FilmDocument>) {}
+  constructor(
+    @InjectRepository(Film) private readonly filmRepository: Repository<Film>,
+    @InjectRepository(Schedule) private readonly scheduleRepository: Repository<Schedule>,
+  ) {}
 
   async bookSeats(filmId: string, sessionId: string, seats: string[]): Promise<void> {
-    const film = await this.filmModel.findOne({
-      id: filmId,
-      'schedule.id': sessionId,
-    }).exec();
-
+    const film = await this.filmRepository.findOne({
+      where: { id: filmId }, 
+      relations: ['schedules'],
+    });
+  
     if (!film) {
-      throw new NotFoundException('Фильм или расписание не найдены');
+      throw new NotFoundException('Фильм не найден');
     }
-
-    const schedule = film.schedule.find((s) => s.id === sessionId);
-
+  
+    const schedule = film.schedules.find((s) => s.id === sessionId); 
+  
     if (!schedule) {
       throw new NotFoundException('Сеанс не найден');
     }
-
+  
     const occupiedSeats = new Set(schedule.taken || []);
-
+  
     for (const seat of seats) {
       if (occupiedSeats.has(seat)) {
         throw new BadRequestException(`Место ${seat} уже забронировано`);
       }
       occupiedSeats.add(seat);
     }
-
+  
     schedule.taken = Array.from(occupiedSeats);
-
-    await this.filmModel.updateOne(
-      { id: filmId, 'schedule.id': sessionId },
-      { $set: { 'schedule.$.taken': schedule.taken } }
-    );
+  
+    await this.scheduleRepository.save(schedule);
   }
 
   async processOrder(order: CreateOrderDto): Promise<any[]> {
     const results = [];
-
+  
     for (const ticket of order.tickets) {
-      await this.bookSeats(ticket.film, ticket.session, [`${ticket.row}-${ticket.seat}`]);
-
+      const filmId = ticket.film; 
+      const sessionId = ticket.session; 
+  
+      if (!filmId || !sessionId) {
+        throw new BadRequestException('Некорректные данные для film или session');
+      }
+  
+      await this.bookSeats(filmId, sessionId, [`${ticket.row}-${ticket.seat}`]);
+  
       results.push({
         film: ticket.film,
         session: ticket.session,
@@ -57,7 +64,7 @@ export class OrderService {
         daytime: new Date().toISOString(),
       });
     }
-
+  
     return results;
   }
 }
