@@ -1,15 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Film, FilmDocument } from './film.schema';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Film } from './entity';
 
 @Injectable()
 export class FilmsService {
-  constructor(@InjectModel(Film.name) private filmModel: Model<FilmDocument>) {}
+  constructor(
+    @InjectRepository(Film)
+    private readonly filmRepository: Repository<Film>,
+  ) {}
 
   async findAll(): Promise<{ total: number; items: Film[] }> {
-    const films = await this.filmModel.find().lean().exec(); 
+    const films = await this.filmRepository.find();
     return {
       total: films.length,
       items: films,
@@ -17,7 +20,7 @@ export class FilmsService {
   }
 
   async findOne(id: string): Promise<Film> {
-    const film = await this.filmModel.findOne({ id }).lean().exec(); 
+    const film = await this.filmRepository.findOne({ where: { id } }); 
     if (!film) {
       throw new NotFoundException(`Фильм с ID ${id} не найден`);
     }
@@ -25,7 +28,7 @@ export class FilmsService {
   }
 
   async create(film: Film): Promise<Film> {
-    const newFilm = new this.filmModel(film);
-    return newFilm.save();
+    const newFilm = this.filmRepository.create(film);
+    return await this.filmRepository.save(newFilm);
   }
 }
