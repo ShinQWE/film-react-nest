@@ -4,6 +4,7 @@ import { EntitySchema } from 'typeorm';
 
 /**
  * фабрика для создания схемы TypeORM на основе класса
+ * Мне пришлось менять контролеры и сервисы т.к. они все имели mongoose
  */
 export function SchemaFactory<T>(classRef: new () => T): EntitySchema<T> {
   return new EntitySchema<T>({
@@ -14,7 +15,7 @@ export function SchemaFactory<T>(classRef: new () => T): EntitySchema<T> {
   });
 }
 
-@Entity()
+@Entity('films') 
 export class Film {
   @PrimaryGeneratedColumn('uuid') 
   id: string;
@@ -47,7 +48,7 @@ export class Film {
   schedules: Schedule[];
 }
 
-@Entity()
+@Entity('schedules') 
 export class Schedule {
   @PrimaryGeneratedColumn('uuid') 
   id: string;
