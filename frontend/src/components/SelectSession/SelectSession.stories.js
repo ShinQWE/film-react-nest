@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+/* eslint-disable storybook/default-exports */
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Default = void 0;
@@ -15,6 +18,7 @@ const meta = {
 };
 exports.default = meta;
 exports.Default = {
+    selected: null,
     args: {
         sessions: [
             {
