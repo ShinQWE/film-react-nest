@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image
+name: Build and Publish Docker Images
 
 on:
   push:
@@ -24,13 +24,26 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Frontend Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
           tags: film-react-nest
-          file: |
-            ./frontend/DockerFile
-            ./backend/DockerFile
-            ./nginx/DockerFile
+          file: ./frontend/Dockerfile  
+
+      - name: Build and push Backend Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: film-react-nest
+          file: ./backend/Dockerfile 
+
+      - name: Build and push Nginx Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: film-react-nest
+          file: ./nginx/Dockerfile  
