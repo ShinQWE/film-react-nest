@@ -30,3 +30,7 @@ jobs:
           context: .
           push: true
           tags: film-react-nest
+          file: |
+            ./frontend/DockerFile
+            ./backend/DockerFile
+            ./nginx/DockerFile
