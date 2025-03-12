@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --production --legacy-peer-deps
+RUN npm install --production --legacy-peer-deps --verbose
 
 COPY . .
 
