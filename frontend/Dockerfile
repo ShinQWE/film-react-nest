@@ -4,11 +4,9 @@ RUN apt-get update && apt-get install -y build-essential git
 
 WORKDIR /app
 
-COPY ./frontend/package*.json ./
+COPY package*.json ./
 
 RUN npm install --production --legacy-peer-deps
-
-COPY ./frontend ./
 
 RUN npm run build || cat /root/.npm/_logs/*.log
 
@@ -18,6 +16,6 @@ FROM nginx:1.23
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY ./frontend/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
