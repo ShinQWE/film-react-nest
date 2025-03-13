@@ -8,6 +8,8 @@ COPY package*.json ./
 COPY tsconfig.json ./
 COPY tsconfig.app.json ./
 COPY tsconfig.node.json ./
+COPY src ./src/ 
+COPY vite.config.ts ./
 
 RUN pwd
 
