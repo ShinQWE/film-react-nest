@@ -24,26 +24,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Frontend Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./frontend 
-          push: true
-          tags: film-react-nest
-          file: ./frontend/Dockerfile  
 
-      - name: Build and push Backend Docker image
-        uses: docker/build-push-action@v4
+      - name: Build and push Docker image 
+        uses: docker/build-push-action@v4 
         with:
-          context: ./backend
-          push: true
-          tags: film-react-nest-backend 
-          file: ./backend/Dockerfile  
-
-      - name: Build and push Nginx Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./frontend 
-          push: true
-          tags: film-react-nest-nginx  
-          file: ./frontend/Dockerfile  
+          context: 
+          . push: true
+          tags: ghcr.io/${{ github.repository }}/film-react-nest:latest
