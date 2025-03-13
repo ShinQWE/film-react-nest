@@ -8,7 +8,7 @@ COPY package*.json ./
 
 RUN pwd
 
-RUN npm install --production --legacy-peer-deps || (cat /root/.npm/_logs/*.log && exit 1)
+RUN npm install --production --legacy-peer-deps 
 
 RUN pwd
 
