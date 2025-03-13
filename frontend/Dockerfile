@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y build-essential git
 WORKDIR /app
 
 COPY package*.json ./
+COPY tsconfig.json ./
 
 RUN pwd
 
