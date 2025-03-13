@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --production --legacy-peer-deps
+RUN npm install 
 
 RUN npm run build || cat /root/.npm/_logs/*.log
 
