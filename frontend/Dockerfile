@@ -6,6 +6,8 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY tsconfig.json ./
+COPY tsconfig.app.json ./
+COPY tsconfig.node.json ./
 
 RUN pwd
 
