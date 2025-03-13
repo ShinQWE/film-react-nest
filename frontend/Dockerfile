@@ -18,7 +18,7 @@ RUN pwd
 
 FROM nginx:1.23
 
-COPY --from=build ./dist /usr/share/nginx/html
+COPY --from=build /dist /usr/share/nginx/html
 
 RUN pwd
 
