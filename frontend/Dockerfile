@@ -10,6 +10,8 @@ RUN ls -la
 
 RUN npm install --production --legacy-peer-deps
 
+RUN ls -la
+
 RUN npm run build || cat /root/.npm/_logs/*.log
 
 RUN ls -la /app
