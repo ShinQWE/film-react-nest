@@ -6,15 +6,15 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN ls -la
+RUN pwd
 
-RUN npm install --production --legacy-peer-deps
+RUN npm install --production --legacy-peer-deps || (cat /root/.npm/_logs/*.log && exit 1)
 
-RUN ls -la
+RUN pwd
 
 RUN npm run build || cat /root/.npm/_logs/*.log
 
-RUN ls -la /app
+RUN pwd
 
 FROM nginx:1.23
 
