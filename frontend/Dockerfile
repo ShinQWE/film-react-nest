@@ -8,7 +8,7 @@ COPY package*.json ./
 
 RUN pwd
 
-RUN npm install --production --legacy-peer-deps 
+RUN npm install
 
 RUN pwd
 
