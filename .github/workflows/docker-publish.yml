@@ -28,6 +28,6 @@ jobs:
       - name: Build and push Docker image 
         uses: docker/build-push-action@v4 
         with:
-          context: film-react-nest
+          context: ./film-react-nest
           . push: true
           tags: ghcr.io/shinqwe/film-react-nest:latest
