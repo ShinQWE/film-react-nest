@@ -12,7 +12,7 @@ RUN npm install --production --legacy-peer-deps
 
 RUN pwd
 
-RUN npm run build || cat /root/.npm/_logs/*.log
+RUN npm run build 
 
 RUN pwd
 
