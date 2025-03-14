@@ -29,11 +29,11 @@ jobs:
         with:
             context: ./frontend  
             push: true
-            tags: ghcr.io/film-react-nest/frontend:latest 
+            tags: ghcr.io/shinqwe/film-react-nest/frontend:latest 
   
       - name: Build and push backend Docker image 
         uses: docker/build-push-action@v4 
         with:
             context: ./backend 
             push: true
-            tags: ghcr.io/film-react-nest/backend:latest 
+            tags: ghcr.io/shinqwe/film-react-nest/backend:latest 
