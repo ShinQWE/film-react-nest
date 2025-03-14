@@ -28,10 +28,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-    services:
-     frontend:
-      image: ghcr.io/shinqwe/film-react-nest/frontend:latest
-
-     backend:
-      image: ghcr.io/shinqwe/film-react-nest/backend:latest
-   
+      - name: Build and push frontend Docker image 
+        uses: docker/build-push-action@v4 
+        with:
+            context: ./frontend  
+            push: true
+            tags: ghcr.io/shinqwe/film-react-nest/frontend:latest 
+  
+      - name: Build and push backend Docker image 
+        uses: docker/build-push-action@v4 
+        with:
+            context: ./backend 
+            push: true
+            tags: ghcr.io/shinqwe/film-react-nest/backend:latest 
