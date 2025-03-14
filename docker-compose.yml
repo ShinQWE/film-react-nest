@@ -1,15 +1,11 @@
 services:
   frontend:
-    build:
-      dockerfile: Dockerfile
     image: ghcr.io/your-username/film-react-nest-frontend:latest
     container_name: frontend
     networks:
       - app-network
 
   backend:
-    build:
-      dockerfile: Dockerfile
     image: ghcr.io/your-username/film-react-nest-backend:latest
     container_name: backend
     ports:
