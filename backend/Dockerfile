@@ -9,6 +9,7 @@ RUN npm install --production --legacy-peer-deps
 COPY . .
 
 RUN npm install -g @nestjs/cli  
+RUN npm install --save-dev @types/node  
 
 RUN npm run build
 
