@@ -1,12 +1,12 @@
 services:
   frontend:
-    image: "shinqwe/film-react-nest-frontend:node20-alpine"
+    image: ghcr.io/shinqwe/film-react-nest/frontend:latest
     container_name: frontend
     networks:
       - app-network
 
   backend:
-    image: "shinqwe/film-react-nest-backend:node20-alpine"
+    image: ghcr.io/shinqwe/film-react-nest/backend:latest
     container_name: backend
     ports:
       - "3000:3000"  
@@ -29,7 +29,7 @@ services:
       - ./backend/test:/docker-entrypoint-initdb.d
     networks:
       - app-network
-      
+#
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
