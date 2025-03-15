@@ -6,21 +6,13 @@ WORKDIR /app
 
 COPY . .
 
-RUN pwd
-
 RUN npm install
 
-RUN pwd
-
 RUN npm run build 
-
-RUN pwd
 
 FROM nginx:1.23
 
 COPY . .
-
-RUN pwd
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

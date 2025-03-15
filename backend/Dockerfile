@@ -2,14 +2,11 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install --production --legacy-peer-deps
 
-COPY . .
-
-RUN npm install -g @nestjs/cli  
-RUN npm install --save-dev @types/node  
+COPY . . 
 
 RUN npm run build
 
