@@ -8,9 +8,9 @@ RUN npm install --production --legacy-peer-deps
 
 COPY . .
 
-RUN npm run build || cat /root/.npm/_logs/*.log && ls -l dist
+RUN npm run build
 
 EXPOSE 3000
 
-# CMD ["node", "dist/main.js"]
-CMD ["sh", "-c", "pwd && ls -l dist"]
+CMD ["node", "dist/main.js"]
+# CMD ["sh", "-c", "pwd && ls -l dist"]
