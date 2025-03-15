@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install --production --legacy-peer-deps
-
-COPY . . 
+RUN npm install 
 
 RUN npm run build
 
