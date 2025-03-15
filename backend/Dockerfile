@@ -1,6 +1,6 @@
 FROM node:20
 
-# WORKDIR /backend
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -12,4 +12,5 @@ RUN npm run build || cat /root/.npm/_logs/*.log
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+# CMD ["node", "dist/main.js"]
+CMD ["ls", "-l", "dist"]
