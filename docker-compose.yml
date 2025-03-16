@@ -1,19 +1,25 @@
 services:
   frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     image: ghcr.io/shinqwe/film-react-nest/frontend:latest
     container_name: frontend
     networks:
       - app-network
 
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: ghcr.io/shinqwe/film-react-nest/backend:latest
     container_name: backend
     ports:
-      - "5432:5432"  
+      - "3000:3000"  
     networks:
       - app-network
     environment:
-      - DATABASE_URL=postgres://prac1:prac1@db:5432/prac1 
+      - DATABASE_URL=postgres://prac1:prac1@db:5432/prac1
 
   db:
     image: postgres:15
@@ -49,7 +55,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./frontend/nginx.conf:/etc/nginx.conf
+      - ./nginx.conf:/etc/nginx.conf
     networks:
       - app-network
 
