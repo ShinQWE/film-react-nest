@@ -29,7 +29,7 @@ services:
       - ./backend/test:/docker-entrypoint-initdb.d
     networks:
       - app-network
-#
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -38,6 +38,16 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "8080:80"
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx.conf
     networks:
       - app-network
 
