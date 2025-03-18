@@ -2,6 +2,6 @@ FROM nginx:1.23
 
 COPY . .
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./dist /usr/share/nginx/html
 
 EXPOSE 80
