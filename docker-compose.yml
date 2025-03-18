@@ -20,8 +20,6 @@ services:
       - app-network
     environment:
       - DATABASE_URL=postgres://prac1:prac1@db:5432/prac1
-    depends_on:
-      - db  
     command: ["sh", "-c", "sleep 10 && npm start"]
 
   db:
