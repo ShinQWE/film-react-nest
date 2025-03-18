@@ -1,6 +1,4 @@
-FROM nginx:1.23
-
-COPY . .
+FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
