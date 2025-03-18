@@ -31,9 +31,6 @@ services:
       POSTGRES_DB: prac1
     ports:
       - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./backend/test:/docker-entrypoint-initdb.d
     networks:
       - app-network
 
