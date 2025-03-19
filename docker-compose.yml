@@ -1,9 +1,6 @@
-version: '3.8'
-
 services:
   frontend:
-    build:
-      context: ./frontend
+    image: ghcr.io/shinqwe/film-react-nest/frontend:latest
     container_name: frontend
     ports:
       - "80:80"
@@ -11,11 +8,10 @@ services:
       - app-network
 
   backend:
-    build:
-      context: ./backend
+    image: ghcr.io/shinqwe/film-react-nest/backend:latest
     container_name: backend
     ports:
-      - "3000:3000"
+      - "3000:3000"  
     networks:
       - app-network
     environment:

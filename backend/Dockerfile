@@ -1,18 +1,13 @@
-# Используем официальный образ Node.js
-FROM node:16
+FROM node:20
 
-# Устанавливаем рабочую директорию
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Копируем package.json и устанавливаем зависимости
-COPY package*.json ./
-RUN npm install
-
-# Копируем остальные файлы
 COPY . .
 
-# Открываем порт
-EXPOSE 3000
+RUN npm install --legacy-peer-deps 
 
-# Запускаем приложение
-CMD ["npm", "start"]
+RUN npm run build
+
+EXPOSE 3000
+###
+CMD ["node", "dist/main.js"]
