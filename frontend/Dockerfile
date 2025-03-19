@@ -1,20 +1,25 @@
-FROM node:20 AS build
+# Используем официальный образ Node.js
+FROM node:16
 
-RUN apt-get update && apt-get install -y build-essential git
+# Устанавливаем рабочую директорию
+WORKDIR /usr/src/app
 
-WORKDIR /app
+# Копируем package.json и устанавливаем зависимости
+COPY package*.json ./
+RUN npm install
 
+# Копируем остальные файлы
 COPY . .
 
-RUN npm install
-#
-RUN npm run build 
+# Собираем приложение
+RUN npm run build
 
-FROM nginx:latest
+# Используем Nginx для раздачи статических файлов
+FROM nginx:alpine
+COPY --from=0 /usr/src/app/build /usr/share/nginx/html
 
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-
+# Открываем порт
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
 
+# Запускаем Nginx
+CMD ["nginx", "-g", "daemon off;"]
