@@ -16,8 +16,6 @@ services:
       - app-network
     environment:
       - DATABASE_URL=postgres://prac1:prac1@db:5432/prac1
-    depends_on:
-      - db
 
   db:
     image: postgres:15
@@ -51,7 +49,6 @@ services:
       - "80:80"
     networks:
       - app-network
-    restart: always
     volumes:
       - frontend_dist:/var/www/frontend:ro
 
