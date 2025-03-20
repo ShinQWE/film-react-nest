@@ -1,4 +1,4 @@
-name: Build and Publish Docker Images
+name: Create and Publish Docker Images
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
   
 jobs:
-  build-and-push:
+  build-and-push-latest:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,7 @@ jobs:
         uses: docker/build-push-action@v4
         with: 
           context: ./frontend
+          file: ./backend/Dockerfile
           push: true
           tags: ghcr.io/shinqwe/film-react-nest/frontend:latest
 
@@ -38,5 +39,6 @@ jobs:
         uses: docker/build-push-action@v4
         with: 
           context: ./backend
+          file: ./frontend/Dockerfile
           push: true
           tags: ghcr.io/shinqwe/film-react-nest/backend:latest
