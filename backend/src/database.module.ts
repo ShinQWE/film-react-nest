@@ -12,16 +12,15 @@ import { Schedule } from './films/entity';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get<string>('DATABASE_HOST'),
-        port: configService.get<number>('DATABASE_PORT'),
-        username: configService.get<string>('DATABASE_USERNAME'),
-        password: configService.get<string>('DATABASE_PASSWORD'),
-        database: configService.get<string>('DATABASE_NAME'),
-        entities: [Film, Schedule],
-        synchronize: false, 
-      }),
+      useFactory: (configService: ConfigService) => {
+        const dbUrl = configService.get<string>('DATABASE_URL');
+        return {
+          type: 'postgres',
+          url: dbUrl, // Используем DATABASE_URL
+          entities: [Film, Schedule],
+          synchronize: false, 
+        };
+      },
       inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([Film, Schedule]), 
