@@ -33,7 +33,7 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: root@example.com
+      PGADMIN_DEFAULT_EMAIL: roott@example.com
       PGADMIN_DEFAULT_PASSWORD: rootT
     ports:
       - "8080:80"
