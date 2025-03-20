@@ -10,4 +10,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+CMD ["./wait-for-it.sh", "db:5432", "--", "node", "dist/main.js"]
