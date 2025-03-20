@@ -2,9 +2,9 @@ FROM node:20
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-
 COPY . .
+
+RUN npm install --legacy-peer-deps
 
 RUN npm run build
 
