@@ -5,7 +5,7 @@ services:
     networks:
       - app-network
     volumes:
-      - frontend_dist:/var/www/frontend:ro
+      - frontend_data:/usr/share/nginx/html
 
   backend:
     image: ghcr.io/shinqwe/film-react-nest/backend:latest
@@ -47,14 +47,14 @@ services:
     container_name: nginx
     ports:
       - "80:80"
+    volumes:
+      - frontend_data:/usr/share/nginx/html
     networks:
       - app-network
-    volumes:
-      - frontend_dist:/var/www/frontend:ro
 
 networks:
   app-network:
     driver: bridge
 
 volumes:
-  frontend_dist:
+  frontend_data:
