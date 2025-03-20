@@ -2,8 +2,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Film } from './films/entity';
-import { Schedule } from './films/entity';
+import { Film } from './films/entity'; // Убедитесь, что путь правильный
+import { Schedule } from './films/entity'; // Убедитесь, что путь правильный
 
 @Module({
   imports: [
@@ -12,13 +12,16 @@ import { Schedule } from './films/entity';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => {
-        const dbUrl = configService.get<string>('DATABASE_URL');
+      useFactory: async (configService: ConfigService) => {
         return {
           type: 'postgres',
-          url: dbUrl, // Используем DATABASE_URL
+          host: configService.get<string>('DATABASE_HOST'),
+          port: configService.get<number>('DATABASE_PORT'),
+          username: configService.get<string>('DATABASE_USERNAME'),
+          password: configService.get<string>('DATABASE_PASSWORD'),
+          database: configService.get<string>('DATABASE_NAME'),
           entities: [Film, Schedule],
-          synchronize: false, 
+          synchronize: process.env.NODE_ENV !== 'production', // Синхронизация только в разработке
         };
       },
       inject: [ConfigService],
