@@ -50,7 +50,7 @@ services:
       - app-network
 
   nginx:
-    image: ghcr.io/shinqwe/film-react-nest/nginx:latest
+    image: ghcr.io/shinqwe/film-react-nest/nginx1:latest
     container_name: nginx
     ports:
       - "80:80"
