@@ -32,18 +32,18 @@ jobs:
         with: 
           context: ./frontend
           push: true
-          tags: ghcr.io/shinqwe/film-react-nest/frontend:${{ github.sha }}
+          tags: ghcr.io/shinqwe/film-react-nest/frontend:latest
 
       - name: Build and push backend Docker image
         uses: docker/build-push-action@v4
         with: 
           context: ./backend
           push: true
-          tags: ghcr.io/shinqwe/film-react-nest/backend:${{ github.sha }}
+          tags: ghcr.io/shinqwe/film-react-nest/backend:latest
 
       - name: Build and push nginx Docker image
         uses: docker/build-push-action@v4
         with: 
           context: ./nginx
           push: true
-          tags: ghcr.io/shinqwe/film-react-nest/nginx:${{ github.sha }}
+          tags: ghcr.io/shinqwe/film-react-nest/nginx:latest
