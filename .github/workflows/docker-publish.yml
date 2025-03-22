@@ -4,14 +4,15 @@ on:
   push:
     branches:
       - review-3 
-
-permissions:
-  packages: write
-  contents: read
   
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
+
+    permissions:
+      packages: write
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -46,10 +47,4 @@ jobs:
         with: 
           context: ./nginx
           push: true
-          tags: ghcr.io/shinqwe/film-react-nest/nginx:latest
-
-      - name: Debugging Information
-        run: |
-          echo "Docker Info:"
-          docker info
-          echo "Current GitHub Token: ${{ secrets.GITHUB_TOKEN }}"
+          tags: ghcr.io/shinqwe/film-react-nest/nginx1:latest
