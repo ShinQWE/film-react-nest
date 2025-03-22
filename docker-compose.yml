@@ -5,8 +5,7 @@ services:
     networks:
       - app-network
     volumes:
-      - frontend-data:/usr/share/nginx/html:ro
-
+      - frontend-data:/usr/share/nginx/html
 
   backend:
     image: ghcr.io/shinqwe/film-react-nest/backend:latest
@@ -55,8 +54,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - frontend-data:/usr/share/nginx/html:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - frontend-data:/usr/share/nginx/html
     networks:
       - app-network
 
