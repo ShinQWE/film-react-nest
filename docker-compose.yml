@@ -31,6 +31,8 @@ services:
       POSTGRES_DB: prac1
     ports:
       - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
     networks:
       - app-network
 
@@ -48,7 +50,7 @@ services:
       - app-network
 
   nginx:
-    image: nginx:latest
+    image: ghcr.io/shinqwe/film-react-nest/nginx:latest
     container_name: nginx
     ports:
       - "80:80"
@@ -64,3 +66,4 @@ networks:
 
 volumes:
   frontend-data:
+  postgres:
