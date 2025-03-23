@@ -4,8 +4,6 @@ services:
       context: ./
       dockerfile: ./docker/Dockerfile.frontend
     container_name: frontend
-    networks:
-      - app-network
     volumes:
       - frontend-data:/usr/share/nginx/html:ro
 
