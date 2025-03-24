@@ -1,5 +1,5 @@
 # Проект:
-http://shin.student.nomorepartiessbs.ru/
+
 
 # FILM!
 

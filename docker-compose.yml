@@ -4,6 +4,10 @@ services:
       context: ./
       dockerfile: ./docker/Dockerfile.frontend
     container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - app-network
     volumes:
       - frontend-data:/usr/share/nginx/html:ro
 
@@ -49,18 +53,6 @@ services:
       - db
     networks:
       - app-network
-
-  nginx:
-    build:
-      context: ./
-      dockerfile: ./nginx/Dockerfile
-    container_name: nginx
-    ports:
-      - "80:80"
-    networks:
-      - app-network
-    volumes:
-      - frontend-data:/usr/share/nginx/html:ro
 
 networks:
   app-network:

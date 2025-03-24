@@ -2,6 +2,10 @@ services:
   frontend:
     image: ghcr.io/shinqwe/film-react-nest/frontend:latest
     container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - app-network
     volumes:
       - frontend-data:/usr/share/nginx/html:ro
 
@@ -45,16 +49,6 @@ services:
       - db
     networks:
       - app-network
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "80:80"
-    networks:
-      - app-network
-    volumes:
-      - frontend-data:/usr/share/nginx/html:ro
 
 networks:
   app-network:
